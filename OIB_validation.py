@@ -16,8 +16,7 @@ def OIB_control():
         # Check if the input only contains numbers
         try:
             int(user_input)
-        # If the input contains any string that is not a number print out the message and continue
-        # the while loop
+        # If the input contains any string that is not a number print out the message and continue the while loop
         except ValueError:
             print('Input must consist only of numbers')
             continue
