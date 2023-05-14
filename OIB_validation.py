@@ -2,23 +2,27 @@
 # and then checks it as described on the following page:
 # https://regos.hr/app/uploads/2018/07/KONTROLA-OIB-a.pdf
 
+
 def OIB_control():
     global first_number, next_number
     # Get the user input and validate it
     while True:
         user_input = input('Enter an OIB you want to check: ')
+        # If the values is different from 11 print out the message and continue the while loop
         if len(user_input) != 11:
             print('Input must be 11 digits long')
             continue
 
+        # Check if the input only contains numbers
         try:
-            # Check if the input values are numbers
             int(user_input)
+        # If the input contains any string that is not a number print out the message and continue
+        # the while loop
         except ValueError:
-            # If the input values are not numbers, print out the following
             print('Input must consist only of numbers')
             continue
 
+        # If the input is alright, break the while loop
         break
 
     # Convert the input to a list of integers
