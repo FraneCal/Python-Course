@@ -12,8 +12,10 @@ def OIB_control():
             continue
 
         try:
+            # Check if the input values are numbers
             int(user_input)
         except ValueError:
+            # If the input values are not numbers, print out the following
             print('Input must consist only of numbers')
             continue
 
