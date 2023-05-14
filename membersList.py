@@ -1,3 +1,7 @@
+#NOT FINISHED
+
+#Gym membership cards: see users, add users, delete, users
+
 members = {
         '1': {
             'First name:': 'John',
