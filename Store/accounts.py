@@ -1,9 +1,7 @@
 
-import warehouse, sales, buyer, administration
+import warehouse
 
-
-def users():
-    accounts = {
+accounts = {
         "001": {
             "User name": "admin",
             "Password": "admin123",
@@ -25,21 +23,70 @@ def users():
             "Password": "administration123",
         },
     }
-    while True:
-        try:
-            user_name = input('User name: ')
-            password = input('Password: ')
-            if user_name == accounts['001']['User name'] and password == accounts['001']['Password']:
-                pass
-            elif user_name == accounts['002']['User name'] and password == accounts['002']['Password']:
-                warehouse.user_choice()
-            elif user_name == accounts['003']['User name'] and password == accounts['003']['Password']:
-                pass
-            elif user_name == accounts['004']['User name'] and password == accounts['004']['Password']:
-                pass
-            elif user_name == accounts['005']['User name'] and password == accounts['005']['Password']:
-                pass
-            return
-        except ValueError:
-            print('Wrong input. Try again.')
 
+
+def users():
+    while True:
+        user_name = input('User name: ')
+        password = input('Password: ')
+
+        for account_id, account_info in accounts.items():
+            if user_name == account_info['User name'] and password == account_info['Password']:
+                if account_id == '001':
+                    # Call the function for user '001' here
+                    # it.user_choice()
+                    pass
+                elif account_id == '002':
+                    warehouse.user_choice()
+                elif account_id == '003':
+                    pass
+                elif account_id == '004':
+                    pass
+                elif account_id == '005':
+                    pass
+                return
+
+        print('Incorrect username or password. Try again.')
+
+
+def all_accounts():
+    header = ["Product ID", "User name", "Password"]
+    # Reminder for myself
+    # The "<" ensures left alignment, and the number next to it defines the width of each column
+    print("{:<15} {:<20} {:<15}".format(*header))
+    print("-" * 55)
+
+    for account_id, account_info in accounts.items():
+        print("{:<15} {:<20} {:<15}".format(
+            account_id,
+            account_info["User name"],
+            account_info["Password"],
+        ))
+    print()
+    print()
+
+
+def add_an_account():
+    next_ID = str(f'0{len(accounts) + 1}')
+    account_name = input('Enter a new user name: ')
+    account_password = input('Enter a new password: ')
+    accounts.update({
+        next_ID: {
+            "User name": f'{account_name}',
+            "Password": f'{account_password}',
+        }
+    })
+    print('Product added successfully.')
+
+    all_accounts()
+
+
+def delete_an_account():
+    all_accounts()
+    account_id = input("Enter the account ID you want to delete: ")
+
+    if account_id in accounts:
+        del accounts[account_id]
+        print(f"Account with ID {account_id} has been deleted.")
+    else:
+        print(f"Account with ID {account_id} does not exist.")
