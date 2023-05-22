@@ -1,5 +1,5 @@
 
-import products
+import products, main
 
 options = ['1. State of the warehouse', '2. State for a certain product', '3. Add a product',
            '4. Change the state', '5. Logout']
@@ -34,7 +34,8 @@ def user_choice():
                 menu_options()
             elif user_input == '5':
                 print('See you next time.')
+                print()
                 should_continue = False
         except ValueError:
             print('Wrong input. Try again.')
-
+    main.main()
