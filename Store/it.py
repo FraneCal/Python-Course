@@ -1,6 +1,5 @@
-# IN PROGRESS
 
-import accounts
+import accounts, main
 
 options = ['1. All accounts', '2. Add an account',
            '3. Delete an account', '4. Logout']
@@ -32,7 +31,11 @@ def user_choice():
                 menu_options()
             elif user_input == '4':
                 print('See you next time.')
+                print()
                 should_continue = False
         except ValueError:
             print('Wrong input. Try again.')
+    main.main()
 
+
+user_choice()
