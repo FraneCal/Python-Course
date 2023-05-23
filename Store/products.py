@@ -65,8 +65,10 @@ products = {
 
 def all_products():
     header = ["Product ID", "Name", "Short Description", "Price", "State"]
-    # Reminder for myself
+    ### Reminder for myself ###
     # The "<" ensures left alignment, and the number next to it defines the width of each column
+    # The asterisk (*) symbol is used to unpack the elements of the header list and
+    # pass them as separate arguments to the format() method
     print("{:<15} {:<20} {:<50} {:<10} {:<10}".format(*header))
     print("-" * 108)
 
