@@ -1,5 +1,5 @@
 
-import warehouse
+import warehouse, it
 
 accounts = {
         "001": {
@@ -33,9 +33,7 @@ def users():
         for account_id, account_info in accounts.items():
             if user_name == account_info['User name'] and password == account_info['Password']:
                 if account_id == '001':
-                    # Call the function for user '001' here
-                    # it.user_choice()
-                    pass
+                    it.user_choice()
                 elif account_id == '002':
                     warehouse.user_choice()
                 elif account_id == '003':
@@ -51,8 +49,6 @@ def users():
 
 def all_accounts():
     header = ["Product ID", "User name", "Password"]
-    # Reminder for myself
-    # The "<" ensures left alignment, and the number next to it defines the width of each column
     print("{:<15} {:<20} {:<15}".format(*header))
     print("-" * 55)
 
@@ -67,7 +63,7 @@ def all_accounts():
 
 
 def add_an_account():
-    next_ID = str(f'0{len(accounts) + 1}')
+    next_ID = str(f'00{len(accounts) + 1}')
     account_name = input('Enter a new user name: ')
     account_password = input('Enter a new password: ')
     accounts.update({
@@ -82,7 +78,6 @@ def add_an_account():
 
 
 def delete_an_account():
-    all_accounts()
     account_id = input("Enter the account ID you want to delete: ")
 
     if account_id in accounts:
@@ -90,3 +85,5 @@ def delete_an_account():
         print(f"Account with ID {account_id} has been deleted.")
     else:
         print(f"Account with ID {account_id} does not exist.")
+
+    all_accounts()
