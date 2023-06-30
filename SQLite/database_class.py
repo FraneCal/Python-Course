@@ -8,13 +8,14 @@ class Database:
                         name TEXT NOT NULL,
                         email TEXT NOT NULL UNIQUE
                         );
-'''
+    '''
     database_name = 'Tvrtka.db'
 
     self.sc = sqlite3.connect(database_name)
     self.cursor = self.sc.cursor()
     self.cursor.execute(create_table_query)
 
+  
   def menu(self):
     while True:
       menu = ['1. Add new user', '2. Show all users', '3. Delete all users', '4. Exit']
@@ -38,9 +39,10 @@ class Database:
         case _:
           print('Wrong input. Try again.')
           print()
-        
+
+  
   def add_user(self):
-    podatci = []
+    users = []
     while True:
       user_name = input('Enter user name: ')
       if user_name:
@@ -53,14 +55,14 @@ class Database:
         break
       else:
         print("Wrong format. Please try again.")
-    podatci.append((user_name, user_email))
+    users.append((user_name, user_email))
 
-    self.cursor.executemany('INSERT INTO Employees(name, email) VALUES (?,?)', podatci)
+    self.cursor.executemany('INSERT INTO Employees(name, email) VALUES (?,?)', users)
     self.sc.commit()
     print('User successfully added.')
     print()
-    
 
+  
   def show_all_users(self):
     print()
     rows = self.cursor.execute('SELECT * FROM Employees').fetchall()
