@@ -73,7 +73,8 @@ class Database:
       for row in rows:
         print(*row)
     print()
-    
+
+  
   def delete_all_users(self):
     self.cursor.execute('DELETE FROM Employees')
     self.sc.commit()
