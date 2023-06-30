@@ -59,6 +59,7 @@ class Database:
 
     self.cursor.executemany('INSERT INTO Employees(name, email) VALUES (?,?)', users)
     self.sc.commit()
+    print()
     print('User successfully added.')
     print()
 
@@ -76,5 +77,6 @@ class Database:
   def delete_all_users(self):
     self.cursor.execute('DELETE FROM Employees')
     self.sc.commit()
+    print()
     print('All users are deleted.')
     print()
