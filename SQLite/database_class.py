@@ -22,6 +22,7 @@ class Database:
       print('**** MENU ****')
       for info in menu:
         print(info)
+      print()
       user_input = input('\nChoose an action: ')
       match user_input:
         case '1':
