@@ -51,8 +51,6 @@ class Database:
                             self.change_the_department()
                         case '6':
                             print('See you next time.')
-                            if self.sc:
-                                self.sc.close()
                             break
                         case _:
                             print('Wrong input. Try again.')
@@ -78,8 +76,6 @@ class Database:
                                 print('In construction.')
                             case '3':
                                 print('See you next time.')
-                                if self.sc:
-                                    self.sc.close()
                                 break
                             case _:
                                 print('Wrong input. Try again.')
@@ -101,8 +97,6 @@ class Database:
                                 print('In construction.')
                             case '3':
                                 print('See you next time.')
-                                if self.sc:
-                                    self.sc.close()
                                 break
                             case _:
                                 print('Wrong input. Try again.')
