@@ -22,14 +22,18 @@ class Database:
 
     def menu(self):
         while True:
-            login_name = input('Enter your username: ')
-            login_password = input('Enter your password: ')
+            login_name = input('Enter your email: ')
 
-            # If the admin is logged in, print out the following menu
-            if login_name == 'admin' and login_password == 'admin123':
+            # Goes through the database
+            self.cursor.execute("SELECT email, department FROM Employees WHERE email=?", (login_name,))
+            user_email = self.cursor.fetchone()
+
+            # If the main admin is logged in, print out the following menu
+            if login_name == 'admin':
                 while True:
                     admin_menu = ['1. Add new user', '2. Show all users', '3. Delete a user',
                                   '4. Delete all users', '5. Change the department', '6. Exit']
+                    print("Main IT department.")
                     print('**** MENU ****')
                     for info in admin_menu:
                         print(info)
@@ -48,37 +52,67 @@ class Database:
                         case '6':
                             print('See you next time.')
                             if self.sc:
-                                self.cursor.close()
                                 self.sc.close()
                             break
                         case _:
                             print('Wrong input. Try again.')
                             print()
 
-            # If someone else, except admin is logged in, print out the following menu
-            elif login_name == 'hr' and login_password == 'hr123':
-                while True:
-                    hr_menu = ['1. Show all users', '2. Exit']
-                    print('**** MENU ****')
-                    for info in hr_menu:
-                        print(info)
-                    user_input = input('\nChoose an action: ')
-                    match user_input:
-                        case '1':
-                            self.show_all_users()
-                        case '2':
-                            print('See you next time.')
-                            if self.sc:
-                                self.cursor.close()
-                                self.sc.close()
-                            break
-                        case _:
-                            print('Wrong input. Try again.')
-                            print()
+            # If anyone expect the main admin is logged in
+            if user_email:
+                email, department = user_email
 
-            # Two empty field to exit the program
-            elif login_name == '' and login_password == '':
+                # If he/she is in HR department print out the following menu
+                if department == 'HR':
+                    print("HR department.")
+                    while True:
+                        hr_menu = ['1. Show all users', '2. Contact IT', '3. Exit']
+                        print('**** MENU ****')
+                        for info in hr_menu:
+                            print(info)
+                        user_input = input('\nChoose an action: ')
+                        match user_input:
+                            case '1':
+                                self.show_all_users()
+                            case '2':
+                                print('In construction.')
+                            case '3':
+                                print('See you next time.')
+                                if self.sc:
+                                    self.sc.close()
+                                break
+                            case _:
+                                print('Wrong input. Try again.')
+                                print()
+
+                # If he/she is in IT department print out the following menu
+                elif department == 'IT':
+                    print("IT department.")
+                    while True:
+                        hr_menu = ['1. Add a user', '2. Delete a user', '3. Exit']
+                        print('**** MENU ****')
+                        for info in hr_menu:
+                            print(info)
+                        user_input = input('\nChoose an action: ')
+                        match user_input:
+                            case '1':
+                                print('In construction.')
+                            case '2':
+                                print('In construction.')
+                            case '3':
+                                print('See you next time.')
+                                if self.sc:
+                                    self.sc.close()
+                                break
+                            case _:
+                                print('Wrong input. Try again.')
+                                print()
+
+            # Empty field to exit the program
+            elif login_name == '':
                 print()
+                self.cursor.close()
+                self.sc.close()
                 print('See you next time.')
                 break
 
@@ -109,10 +143,11 @@ class Database:
             if department != 'IT' or department != 'HR':
                 print('That department does not exist.')
 
+            # Append it to the empty list in a tuple
             users.append((first_name, last_name, user_email, department))
             break
 
-        # If everything is okey, add the user
+        # If everything is okay, add the user
         self.cursor.executemany('INSERT INTO Employees(first_name, last_name, email, department) VALUES (?,?,?,?)', users)
         self.sc.commit()
         print()
@@ -121,13 +156,21 @@ class Database:
 
     def show_all_users(self):
         print()
+
+        # Fetch all the users from the database
         rows = self.cursor.execute('SELECT * FROM Employees').fetchall()
 
+        # If there aren't any users in the database print out the following
         if not rows:
             print('There are no users in the database.')
 
+        # If there are users, print them out one by one
         else:
             for row in rows:
+                '''
+                The star is here to remove the brackets, if you print it out without a star it will
+                print it out as a tuple
+                '''
                 print(*row)
         print()
 
@@ -220,4 +263,3 @@ class Database:
                 break
             except Exception as e:
                 print(f"An error occurred: {e}")
-
