@@ -91,6 +91,7 @@ class Database:
     def add_user(self):
         users = []
         while True:
+            # Asking for new user info
             first_name = input('Enter first name: ').title()
 
             if first_name == '':
@@ -111,6 +112,7 @@ class Database:
             users.append((first_name, last_name, user_email, department))
             break
 
+        # If everything is okey, add the user
         self.cursor.executemany('INSERT INTO Employees(first_name, last_name, email, department) VALUES (?,?,?,?)', users)
         self.sc.commit()
         print()
