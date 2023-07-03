@@ -25,6 +25,7 @@ class Database:
             login_name = input('Enter your username: ')
             login_password = input('Enter your password: ')
 
+            # If the admin is logged in, print out the following menu
             if login_name == 'admin' and login_password == 'admin123':
                 while True:
                     admin_menu = ['1. Add new user', '2. Show all users', '3. Delete a user',
@@ -54,6 +55,7 @@ class Database:
                             print('Wrong input. Try again.')
                             print()
 
+            # If someone else, except admin is logged in, print out the following menu
             elif login_name == 'hr' and login_password == 'hr123':
                 while True:
                     hr_menu = ['1. Show all users', '2. Exit']
@@ -74,11 +76,13 @@ class Database:
                             print('Wrong input. Try again.')
                             print()
 
+            # Two empty field to exit the program
             elif login_name == '' and login_password == '':
                 print()
                 print('See you next time.')
                 break
 
+            # If anything else is inputted print the following error message
             else:
                 print()
                 print('Wrong input. Try again.')
