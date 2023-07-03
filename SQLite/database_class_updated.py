@@ -5,7 +5,7 @@ import re
 class Database:
 
     def __init__(self):
-        # Creating the database, connecting to it, and creating the cursor
+        # Creating the database, connect to it, and create a cursor
         create_table_query = '''CREATE TABLE IF NOT EXISTS Employees (
                         id INTEGER PRIMARY KEY,
                         first_name TEXT NOT NULL,
@@ -24,44 +24,44 @@ class Database:
         while True:
             login_name = input('Enter your email: ')
 
-            # Goes through the database
+            # Go through the database
             self.cursor.execute("SELECT email, department FROM Employees WHERE email=?", (login_name,))
             user_email = self.cursor.fetchone()
 
-            # If the main admin is logged in, print out the following menu
-            if login_name == 'admin':
-                while True:
-                    admin_menu = ['1. Add new user', '2. Show all users', '3. Delete a user',
-                                  '4. Delete all users', '5. Change the department', '6. Exit']
-                    print("Main IT department.")
-                    print('**** MENU ****')
-                    for info in admin_menu:
-                        print(info)
-                    user_input = input('\nChoose an action: ')
-                    match user_input:
-                        case '1':
-                            self.add_user()
-                        case '2':
-                            self.show_all_users()
-                        case '3':
-                            self.delete_a_user()
-                        case '4':
-                            self.delete_all_users()
-                        case '5':
-                            self.change_the_department()
-                        case '6':
-                            print('See you next time.')
-                            break
-                        case _:
-                            print('Wrong input. Try again.')
-                            print()
-
-            # If anyone expect the main admin is logged in
             if user_email:
                 email, department = user_email
 
+                # If the main admin is logging in, print out the following menu
+                if email == 'admin@net.hr' and department == 'IT':
+                    while True:
+                        admin_menu = ['1. Add new user', '2. Show all users', '3. Delete a user',
+                                      '4. Delete all users', '5. Change the department', '6. Exit']
+                        print("Main IT department.")
+                        print('**** MENU ****')
+                        for info in admin_menu:
+                            print(info)
+                        user_input = input('\nChoose an action: ')
+                        match user_input:
+                            case '1':
+                                self.add_user()
+                            case '2':
+                                self.show_all_users()
+                            case '3':
+                                self.delete_a_user()
+                            case '4':
+                                self.delete_all_users()
+                            case '5':
+                                self.change_the_department()
+                            case '6':
+                                print('See you next time.')
+                                print()
+                                break
+                            case _:
+                                print('Wrong input. Try again.')
+                                print()
+
                 # If he/she is in HR department print out the following menu
-                if department == 'HR':
+                elif department == 'HR':
                     print("HR department.")
                     while True:
                         hr_menu = ['1. Show all users', '2. Contact IT', '3. Exit']
@@ -76,6 +76,7 @@ class Database:
                                 print('In construction.')
                             case '3':
                                 print('See you next time.')
+                                print()
                                 break
                             case _:
                                 print('Wrong input. Try again.')
@@ -97,6 +98,7 @@ class Database:
                                 print('In construction.')
                             case '3':
                                 print('See you next time.')
+                                print()
                                 break
                             case _:
                                 print('Wrong input. Try again.')
@@ -110,7 +112,7 @@ class Database:
                 print('See you next time.')
                 break
 
-            # If anything else is inputted print the following error message
+            # If anything else is inputted print out the following error message
             else:
                 print()
                 print('Wrong input. Try again.')
@@ -208,11 +210,11 @@ class Database:
                 self.cursor.execute(delete_query, (user_email,))
                 rows_affected = self.cursor.rowcount
                 self.sc.commit()
-                # If the user has entered the right email format, but that user doesn't exist
+                # If the user has entered the right email format, but that user doesn't exist print out the following
                 if rows_affected == 0:
                     print("User does not exist.")
                     continue
-                # If the right email format has beeen entered, and the user exist, delete him
+                # If the right email format has been entered, and the user exist, delete him
                 else:
                     print()
                     print("User deleted successfully.")
