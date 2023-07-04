@@ -71,7 +71,7 @@ class Database:
                         user_input = input('\nChoose an action: ')
                         match user_input:
                             case '1':
-                                self.show_all_users()
+                                print('In construction.')
                             case '2':
                                 print('In construction.')
                             case '3':
